@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"God Mode"</Description>
+      <LastState/>
+      <Color>00FF00</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Terraria: Cthulhu is mad... and is missing an eye!
+  Version: 
+  Date   : 2024-12-14
+  Author : Admin
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,29 82 08 04 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 29 82 08 04 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Terraria.Player::Hurt+1201
+
+Terraria.Player::Hurt+11D7: 0F B6 45 10           - movzx eax,byte ptr [ebp+10]
+Terraria.Player::Hurt+11DB: 50                    - push eax
+Terraria.Player::Hurt+11DC: 6A 00                 - push 00
+Terraria.Player::Hurt+11DE: F2 0F 10 45 DC        - movsd xmm0,[ebp-24]
+Terraria.Player::Hurt+11E3: F2 0F 2C D0           - cvttsd2si edx,xmm0
+Terraria.Player::Hurt+11E7: 8B 8D 44 FF FF FF     - mov ecx,[ebp-000000BC]
+Terraria.Player::Hurt+11ED: E8 8E E8 29 FD        - call Terraria.CombatText::NewText
+Terraria.Player::Hurt+11F2: F2 0F 10 45 DC        - movsd xmm0,[ebp-24]
+Terraria.Player::Hurt+11F7: F2 0F 2C C0           - cvttsd2si eax,xmm0
+Terraria.Player::Hurt+11FB: 8B 95 9C FD FF FF     - mov edx,[ebp-00000264]
+// ---------- INJECTING HERE ----------
+Terraria.Player::Hurt+1201: 29 82 08 04 00 00     - sub [edx+00000408],eax
+// ---------- DONE INJECTING  ----------
+Terraria.Player::Hurt+1207: 83 7D 0C FF           - cmp dword ptr [ebp+0C],-01
+Terraria.Player::Hurt+120B: 0F 85 A2 00 00 00     - jne Terraria.Player::Hurt+12B3
+Terraria.Player::Hurt+1211: 8B 85 9C FD FF FF     - mov eax,[ebp-00000264]
+Terraria.Player::Hurt+1217: C6 80 F9 06 00 00 01  - mov byte ptr [eax+000006F9],01
+Terraria.Player::Hurt+121E: 33 D2                 - xor edx,edx
+Terraria.Player::Hurt+1220: 89 55 8C              - mov [ebp-74],edx
+Terraria.Player::Hurt+1223: 0F B6 45 18           - movzx eax,byte ptr [ebp+18]
+Terraria.Player::Hurt+1227: 85 C0                 - test eax,eax
+Terraria.Player::Hurt+1229: 74 09                 - je Terraria.Player::Hurt+1234
+Terraria.Player::Hurt+122B: C7 45 8C 08 00 00 00  - mov [ebp-74],00000008
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Infinite Mana"</Description>
+      <LastState/>
+      <Color>FF8000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Terraria: Cthulhu is mad... and is missing an eye!
+  Version: 
+  Date   : 2024-12-14
+  Author : Admin
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,29 86 0C 04 00 00 EB 3B) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 29 86 0C 04 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Terraria.Player::ItemCheck_PayMana+11A
+
+Terraria.Player::ItemCheck_PayMana+F8: 81 F9 FB 10 00 00     - cmp ecx,000010FB
+Terraria.Player::ItemCheck_PayMana+FE: 74 5D                 - je Terraria.Player::ItemCheck_PayMana+15D
+Terraria.Player::ItemCheck_PayMana+100: 81 F9 FC 10 00 00     - cmp ecx,000010FC
+Terraria.Player::ItemCheck_PayMana+106: 74 55                 - je Terraria.Player::ItemCheck_PayMana+15D
+Terraria.Player::ItemCheck_PayMana+108: 8B 86 0C 04 00 00     - mov eax,[esi+0000040C]
+Terraria.Player::ItemCheck_PayMana+10E: 3B 45 F0              - cmp eax,[ebp-10]
+Terraria.Player::ItemCheck_PayMana+111: 7C 0F                 - jl Terraria.Player::ItemCheck_PayMana+122
+Terraria.Player::ItemCheck_PayMana+113: 85 FF                 - test edi,edi
+Terraria.Player::ItemCheck_PayMana+115: 75 46                 - jne Terraria.Player::ItemCheck_PayMana+15D
+Terraria.Player::ItemCheck_PayMana+117: 8B 45 F0              - mov eax,[ebp-10]
+// ---------- INJECTING HERE ----------
+Terraria.Player::ItemCheck_PayMana+11A: 29 86 0C 04 00 00     - sub [esi+0000040C],eax
+// ---------- DONE INJECTING  ----------
+Terraria.Player::ItemCheck_PayMana+120: EB 3B                 - jmp Terraria.Player::ItemCheck_PayMana+15D
+Terraria.Player::ItemCheck_PayMana+122: 80 BE 1C 08 00 00 00  - cmp byte ptr [esi+0000081C],00
+Terraria.Player::ItemCheck_PayMana+129: 74 2B                 - je Terraria.Player::ItemCheck_PayMana+156
+Terraria.Player::ItemCheck_PayMana+12B: 8B CE                 - mov ecx,esi
+Terraria.Player::ItemCheck_PayMana+12D: FF 15 44 95 C8 07     - call dword ptr [07C89544]
+Terraria.Player::ItemCheck_PayMana+133: 8B 86 0C 04 00 00     - mov eax,[esi+0000040C]
+Terraria.Player::ItemCheck_PayMana+139: 3B 45 F0              - cmp eax,[ebp-10]
+Terraria.Player::ItemCheck_PayMana+13C: 7C 0F                 - jl Terraria.Player::ItemCheck_PayMana+14D
+Terraria.Player::ItemCheck_PayMana+13E: 85 FF                 - test edi,edi
+Terraria.Player::ItemCheck_PayMana+140: 75 1B                 - jne Terraria.Player::ItemCheck_PayMana+15D
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Craft Anything"</Description>
+      <LastState/>
+      <Color>C0C0C0</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>define(address, Terraria.Recipe::FindRecipes+115)
+define(bytes, 74 22)
+
+[ENABLE]
+assert(address, bytes)
+
+address:
+  db EB 1A
+
+[DISABLE]
+address:
+  db bytes
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"FullBright"</Description>
+      <LastState/>
+      <Color>00FFFF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>define(address, Terraria.Graphics.Light.TileLightScanner::GetTileLight+FF)
+define(bytes, 8B 4D E8 39 09)
+
+[ENABLE]
+assert(address, bytes)
+alloc(newMemory, 30, address)
+label(light)
+label(leave)
+
+newMemory:
+  push esi
+  mov esi,[ebp+08]
+
+  fld dword ptr [light]
+  fstp dword ptr [esi]
+
+  fld dword ptr [light]
+  fstp dword ptr [esi+04]
+
+  fld dword ptr [light]
+  fstp dword ptr [esi+08]
+
+  pop esi
+
+  mov ecx,[ebp-18]
+  cmp [ecx],ecx
+  jmp leave
+light:
+  dd (float)1
+
+address:
+  jmp newMemory
+leave:
+
+[DISABLE]
+address:
+  db bytes
+
+unregisterSymbol(*)
+dealloc(*)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Instant Wall Mine"</Description>
+      <LastState/>
+      <Color>FF8080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>define(address, Terraria.Player::ItemCheck_UseMiningTools_TryHittingWall+FB)
+define(bytes, 89 86 08 06 00 00)
+
+[ENABLE]
+assert(address, bytes)
+
+address:
+  nop 6
+
+[DISABLE]
+address:
+  db bytes
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Instant Tile Mine"</Description>
+      <LastState/>
+      <Color>FF8080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>define(address, Terraria.Player::ItemCheck_UseMiningTools+1B2)
+define(bytes, 75 57)
+
+[ENABLE]
+assert(address, bytes)
+
+address:
+  nop 2
+
+[DISABLE]
+address:
+  db bytes
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"One Hit Enemies"</Description>
+      <LastState/>
+      <Color>C08080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Terraria: Better than life
+  Version:
+  Date   : 2024-12-14
+  Author : Admin
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,29 86 0C 01 00 00 D9) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [esi+0000010C],0
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 29 86 0C 01 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Terraria.NPC::StrikeNPC+724
+
+Terraria.NPC::StrikeNPC+6F5: A1 AC 5D 54 06     - mov eax,[06545DAC]
+Terraria.NPC::StrikeNPC+6FA: 8B 96 C8 00 00 00  - mov edx,[esi+000000C8]
+Terraria.NPC::StrikeNPC+700: 3B 50 04           - cmp edx,[eax+04]
+Terraria.NPC::StrikeNPC+703: 0F 83 67 03 00 00  - jae Terraria.NPC::StrikeNPC+A70
+Terraria.NPC::StrikeNPC+709: 8B 44 90 08        - mov eax,[eax+edx*4+08]
+Terraria.NPC::StrikeNPC+70D: 8B 80 10 01 00 00  - mov eax,[eax+00000110]
+Terraria.NPC::StrikeNPC+713: 89 86 10 01 00 00  - mov [esi+00000110],eax
+Terraria.NPC::StrikeNPC+719: EB 0F              - jmp Terraria.NPC::StrikeNPC+72A
+Terraria.NPC::StrikeNPC+71B: F2 0F 10 45 E8     - movsd xmm0,[ebp-18]
+Terraria.NPC::StrikeNPC+720: F2 0F 2C C0        - cvttsd2si eax,xmm0
+// ---------- INJECTING HERE ----------
+Terraria.NPC::StrikeNPC+724: 29 86 0C 01 00 00  - sub [esi+0000010C],eax
+// ---------- DONE INJECTING  ----------
+Terraria.NPC::StrikeNPC+72A: D9 45 18           - fld dword ptr [ebp+18]
+Terraria.NPC::StrikeNPC+72D: D9 EE              - fldz
+Terraria.NPC::StrikeNPC+72F: DF F1              - fcomip st(0),st(1)
+Terraria.NPC::StrikeNPC+731: DD D8              - fstp st(0)
+Terraria.NPC::StrikeNPC+733: 0F 8A 3A 02 00 00  - jp Terraria.NPC::StrikeNPC+973
+Terraria.NPC::StrikeNPC+739: 0F 83 34 02 00 00  - jae Terraria.NPC::StrikeNPC+973
+Terraria.NPC::StrikeNPC+73F: D9 86 1C 01 00 00  - fld dword ptr [esi+0000011C]
+Terraria.NPC::StrikeNPC+745: D9 EE              - fldz
+Terraria.NPC::StrikeNPC+747: DF F1              - fcomip st(0),st(1)
+Terraria.NPC::StrikeNPC+749: DD D8              - fstp st(0)
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Luck +64"</Description>
+      <LastState/>
+      <Color>8080FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>define(address, Terraria.Player::RecalculateLuck+AB)
+define(bytes, D9 86 18 05 00 00)
+
+[ENABLE]
+assert(address, bytes)
+alloc(luckNum, 4, address)
+
+luckNum:
+  dd (float)64
+
+address:
+  fld dword ptr [luckNum]
+
+[DISABLE]
+address:
+  db bytes
+
+dealloc(*)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"FullBright SelfMade"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Terraria: Cult of Cenx
+  Version: 
+  Date   : 2024-12-15
+  Author : Admin
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,0F B6 41 11 25 80 00 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  ret  //movzx eax,byte ptr [ecx+11]
+  and eax,00000080
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 4
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 0F B6 41 11 25 80 00 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Terraria.Tile::fullbrightBlock
+
+26F54AA6: 00 00           - add [eax],al
+26F54AA8: 18 C9           - sbb cl,cl
+26F54AAA: D7              - xlatb 
+26F54AAB: 26 00 00        - add es:[eax],al
+26F54AAE: 00 00           - add [eax],al
+26F54AB0: 10 C9           - adc cl,cl
+26F54AB2: D7              - xlatb 
+26F54AB3: 26 08 F5        - or ch,dh
+26F54AB6: 6B 07           - db 6B 07 
+Terraria.Tile::fullbrightBlock: 0F B6 41 11     - movzx eax,byte ptr [ecx+11]
+// ---------- INJECTING HERE ----------
+Terraria.Tile::fullbrightBlock+4: 25 80 00 00 00  - and eax,00000080
+// ---------- DONE INJECTING  ----------
+Terraria.Tile::fullbrightBlock+9: 3D 80 00 00 00  - cmp eax,00000080
+Terraria.Tile::fullbrightBlock+E: 0F 94 C0        - sete al
+Terraria.Tile::fullbrightBlock+11: 0F B6 C0        - movzx eax,al
+Terraria.Tile::fullbrightBlock+14: C3              - ret 
+Terraria.Tile::fullbrightBlock+15: 00 00           - add [eax],al
+26F54ACF: 00 2C C9        - add [ecx+ecx*8],ch
+26F54AD2: D7              - xlatb 
+26F54AD3: 26 00 00        - add es:[eax],al
+26F54AD6: 00 00           - add [eax],al
+26F54AD8: 24 C9           - and al,-37
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Cave Background Bright Half"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Terraria: Cthulhu is mad... and is missing an eye!
+  Version: 
+  Date   : 2024-12-15
+  Author : Admin
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,0F B6 41 11 83 E0 40) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  ret   //movzx eax,byte ptr [ecx+11]
+  //and eax,40
+  //jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 0F B6 41 11 83 E0 40
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Terraria.Tile::invisibleWall
+
+2C7EE3FA: 2F           - das 
+2C7EE3FB: 23 00        - and eax,[eax]
+2C7EE3FD: 00 00        - add [eax],al
+2C7EE3FF: 00 48 AB     - add [eax-55],cl
+2C7EE402: 2F           - das 
+2C7EE403: 23 F0        - and esi,eax
+2C7EE405: F4           - hlt 
+2C7EE406: 71 07        - jno Terraria.Tile::invisibleWall+7
+Terraria.Tile::invisibleWall: 0F B6 41 11  - movzx eax,byte ptr [ecx+11]
+Terraria.Tile::invisibleWall+4: 83 E0 40     - and eax,40
+// ---------- INJECTING HERE ----------
+Terraria.Tile::invisibleWall+7: 83 F8 40     - cmp eax,40
+// ---------- DONE INJECTING  ----------
+Terraria.Tile::invisibleWall+A: 0F 94 C0     - sete al
+Terraria.Tile::invisibleWall+D: 0F B6 C0     - movzx eax,al
+Terraria.Tile::invisibleWall+10: C3           - ret 
+2C7EE419: 00 00        - add [eax],al
+2C7EE41B: 00 00        - add [eax],al
+2C7EE41D: 00 00        - add [eax],al
+2C7EE41F: 00 64 AB 2F  - add [ebx+ebp*4+2F],ah
+2C7EE423: 23 00        - and eax,[eax]
+2C7EE425: 00 00        - add [eax],al
+2C7EE427: 00 5C AB 2F  - add [ebx+ebp*4+2F],bl
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
